@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>사내 업무 도구</title>
+<style>
+  body { font-family:"Malgun Gothic","맑은 고딕",Arial,sans-serif; background:#f5f6f8; margin:0; }
+  .gate { max-width:340px; margin:16vh auto; background:#fff; border:1px solid #e3e6ea;
+          border-radius:12px; padding:28px 26px; box-shadow:0 6px 24px rgba(0,0,0,.06); }
+  .gate h1 { font-size:18px; margin:0 0 4px; }
+  .gate p { color:#777; font-size:13px; margin:0 0 18px; }
+  .gate input { width:100%; box-sizing:border-box; padding:11px 12px; font-size:15px;
+                border:1px solid #cdd2d8; border-radius:8px; }
+  .gate button { width:100%; margin-top:12px; padding:11px; font-size:15px; font-weight:600;
+                 color:#fff; background:#1a73e8; border:0; border-radius:8px; cursor:pointer; }
+  .gate button:hover { background:#155ec0; }
+  .err { color:#c62828; font-size:13px; margin-top:10px; min-height:18px; }
+</style>
+</head>
+<body>
+<div class="gate" id="gate">
+  <h1>🔒 사내 업무 도구</h1>
+  <p>비밀번호를 입력하세요.</p>
+  <input id="pw" type="password" placeholder="비밀번호" autofocus autocomplete="current-password">
+  <button id="go">열기</button>
+  <div class="err" id="err"></div>
+</div>
+<script>
+const DATA = {"salt": "v4z+X7D0j/NcOVnAOq/aTQ==", "iv": "Qs7mv9V4i5Q7wszM", "ct": "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", "iter": 200000};
+const b2u = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function unlock(pw) {
+  const salt = b2u(DATA.salt), iv = b2u(DATA.iv), ct = b2u(DATA.ct);
+  const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw),
+      "PBKDF2", false, ["deriveKey"]);
+  const key = await crypto.subtle.deriveKey(
+      {name:"PBKDF2", salt, iterations:DATA.iter, hash:"SHA-256"},
+      base, {name:"AES-GCM", length:256}, false, ["decrypt"]);
+  const buf = await crypto.subtle.decrypt({name:"AES-GCM", iv}, key, ct);
+  return new TextDecoder().decode(buf);
+}
+async function tryOpen(pw, remember) {
+  try {
+    const html = await unlock(pw);
+    if (remember) sessionStorage.setItem("site_pw", pw);
+    document.open(); document.write(html); document.close();
+  } catch (e) {
+    sessionStorage.removeItem("site_pw");
+    document.getElementById("err").textContent = "비밀번호가 올바르지 않습니다.";
+    document.getElementById("pw").value = "";
+  }
+}
+document.getElementById("go").onclick = () => tryOpen(document.getElementById("pw").value, true);
+document.getElementById("pw").addEventListener("keydown", e => { if (e.key === "Enter") document.getElementById("go").click(); });
+// 같은 세션에서 이미 입력했으면(포털에서 등) 자동 잠금해제
+const saved = sessionStorage.getItem("site_pw");
+if (saved) tryOpen(saved, false);
+</script>
+</body>
+</html>

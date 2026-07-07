@@ -1,0 +1,8 @@
+# 이 폴더(web/)는 GitHub Pages 로 발행됩니다.
+# 발행 대상은 각 도구의 index.html(암호화된 페이지)뿐입니다.
+# 혹시라도 민감/불필요 파일이 이 폴더로 들어와도 절대 올라가지 않도록 차단.
+web_password.txt
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
